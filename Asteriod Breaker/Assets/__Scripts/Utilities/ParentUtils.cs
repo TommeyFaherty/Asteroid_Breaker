@@ -17,6 +17,11 @@ namespace Utilities
             return GetParent("BulletParent");
         }
 
+        public static GameObject GetBombParent()
+        {
+            return GetParent("BombParent");
+        }
+
         // method to find parent of enemies
         public static GameObject GetParent(string requiredParent)
         {

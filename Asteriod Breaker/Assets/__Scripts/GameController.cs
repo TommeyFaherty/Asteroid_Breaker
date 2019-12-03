@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
     // == fields ==
     private int playerScore = 0;
     public GameObject pausePanel;
+    public GameObject gameOverPanel;
+    public GameObject inGameUI;
     private bool paused = false;
     public TextMeshProUGUI score;
     public Text playerName;
@@ -16,12 +18,13 @@ public class GameController : MonoBehaviour
     void Start()
     {
         playerName.text = PlayerPrefs.GetString("player_name");
-         
         Debug.Log("Player name: "+playerName.text);
     }
 
     void Update()
     {
+
+        //Check if the ecape key was pressed to pause
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused == false)
@@ -34,7 +37,7 @@ public class GameController : MonoBehaviour
             }
 
         }
-        
+        score.text = playerScore.ToString();
     }
     // == event handling ==
     // subscribe in the OnEnable method
@@ -88,4 +91,13 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
+    public void EndGame()
+    {
+        Debug.Log("GAME OVER!!!");
+
+        Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
+        inGameUI.SetActive(false);
+
+    }
 }

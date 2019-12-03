@@ -8,8 +8,7 @@ public class Enemy : MonoBehaviour
     // add the collider stuff, to detect if a bullet hits
     // detect the collisiion
     // destroy the bullet prefab, then this prefab
-    [SerializeField]
-    private int scoreValue = 10;
+    [SerializeField] private int scoreValue = 10;
 
     public int ScoreValue { get { return scoreValue; } }
 
