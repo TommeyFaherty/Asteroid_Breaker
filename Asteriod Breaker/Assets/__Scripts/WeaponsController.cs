@@ -15,6 +15,7 @@ public class WeaponsController : MonoBehaviour
     private float firingRate = 0.4f;
 
     private GameObject bulletParent;
+    
 
     [SerializeField]
     private Bullet bulletPrefab;
@@ -36,6 +37,7 @@ public class WeaponsController : MonoBehaviour
     {
         if( Input.GetKeyDown(KeyCode.Space))
         {
+            FindObjectOfType<AudioManager>().Play("laser");
             InvokeRepeating("Shoot", 0f, firingRate);
         }
         if(Input.GetKeyUp(KeyCode.Space))

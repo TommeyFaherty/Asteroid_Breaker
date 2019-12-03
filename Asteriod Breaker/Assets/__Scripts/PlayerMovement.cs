@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     // == private fields ==
     [SerializeField]
     private float moveSpeed = 7.0f;
+    [SerializeField]
+    private Sprite GoSprite;
+    [SerializeField]
+    private Sprite DefaultSprite;
 
     // == private methods ==
     // Update is called once per frame
@@ -28,6 +32,16 @@ public class PlayerMovement : MonoBehaviour
         // add the change to the current position
         var newXPos = transform.position.x + deltaX;
         var newYPos = transform.position.y + deltaY;
+
+        //Changes sprite when moveing along the Y axis
+        if(deltaY != 0)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = GoSprite;
+        }
+        else if(this.GetComponent<SpriteRenderer>().sprite == GoSprite)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = DefaultSprite;
+        }
 
         transform.position = new Vector2(newXPos, newYPos);
     }

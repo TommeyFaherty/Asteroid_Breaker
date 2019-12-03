@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     // detect the collisiion
     // destroy the bullet prefab, then this prefab
     [SerializeField] private int scoreValue = 10;
-
     public int ScoreValue { get { return scoreValue; } }
 
     // when the enemy dies, need to give the player the points
@@ -19,8 +18,10 @@ public class Enemy : MonoBehaviour
     // use a delegate type to create the event
 
     public delegate void EnemyKilled(Enemy enemy);
-
     public static EnemyKilled EnemyKilledEvent;
+
+    //[SerializeField]
+    //private GameObject audioManager;
 
     // trigger event
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,10 +33,13 @@ public class Enemy : MonoBehaviour
         var bullet = collision.GetComponent<Bullet>();
         var player = collision.GetComponent<PlayerMovement>();
 
-        if(bullet && (tagType != "EnemyRectangle"))
+        if (bullet && (tagType != "EnemyRectangle"))
         {
             // play a clip to inidcate a hit
-            Destroy(bullet);
+            //audioManager.Play("hitmark");
+            FindObjectOfType<AudioManager>().Play("hitmark");
+
+            Destroy(bullet.gameObject);
             PublishEnemyKilledEvent();
             Destroy(gameObject);
         }

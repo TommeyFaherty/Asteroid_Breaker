@@ -9,8 +9,9 @@ public class PointSpawner : MonoBehaviour
     // get a list of spawn points
     // randomly select one to get the position at which to start the enemy
     [SerializeField] private float spawnDelay = 1.0f;
-
     [SerializeField] private float spawnInterval = 0.5f;
+    private int spawnChances = 10;
+    private int playerScore = 0;
 
     [SerializeField] private Enemy enemyPrefab;
     [SerializeField] private Bomb bombPrefab;
@@ -32,6 +33,31 @@ public class PointSpawner : MonoBehaviour
 
         spawnPoints = GetComponentsInChildren<SpawnPoint>();
         SpawnRepeating();
+    }
+
+    //Needed to keep track of score 
+    //To scale difficulty
+    private void Update()
+    {
+        playerScore = PlayerPrefs.GetInt("player_score", playerScore);
+        if(playerScore > 50 && playerScore < 200)
+        {
+            spawnChances = 8;
+        }
+        else if(playerScore >= 200 && playerScore < 600)
+        {
+            spawnChances = 7;
+        }
+        else if (playerScore >= 600 && playerScore < 1000)
+        {
+            spawnChances = 6;
+        }
+        else if(playerScore >= 1000)
+        {
+            spawnChances = 5;
+        }
+
+        Debug.Log("Chances: " + spawnChances);
     }
 
     private void SpawnRepeating()
@@ -56,10 +82,12 @@ public class PointSpawner : MonoBehaviour
         var enemy = Instantiate(enemyPrefab, enemyParent.transform);
         var bomb = Instantiate(bombPrefab, bombParent.transform);
 
+        //Randomly decided to spawn a rock (enemy) or a bomb
+        //with a favour to spawning rocks
         System.Random rnd = new System.Random();
         int spawnDecider = rnd.Next(1,10);
 
-        if(spawnDecider <= 8)
+        if(spawnDecider <= spawnChances)
             enemy.transform.position = currPoint.transform.position;
         else
             bomb.transform.position = currPoint.transform.position;
