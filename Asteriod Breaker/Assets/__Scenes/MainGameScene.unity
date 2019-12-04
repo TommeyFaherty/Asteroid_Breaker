@@ -3866,8 +3866,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039961746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.099, y: 0.33, z: 1}
-  m_LocalScale: {x: 1.8144783, y: 1.5189524, z: 1}
+  m_LocalPosition: {x: 0.095, y: 0.33, z: 1}
+  m_LocalScale: {x: 1.8525823, y: 1.5189524, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -6907,7 +6907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnDelay: 1
-  spawnInterval: 1
+  spawnInterval: 1.5
   enemyPrefab: {fileID: 1864309000236364303, guid: ebb010528621c8942a0b55cabf282c00,
     type: 3}
   bombPrefab: {fileID: 5428681980742578872, guid: 069d1e7124956a742b50a649a865a584,
@@ -7584,7 +7584,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1995155961}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 406608399}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1995155961
 MonoBehaviour:
   m_ObjectHideFlags: 0

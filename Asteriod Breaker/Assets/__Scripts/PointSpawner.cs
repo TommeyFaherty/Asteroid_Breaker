@@ -9,7 +9,7 @@ public class PointSpawner : MonoBehaviour
     // get a list of spawn points
     // randomly select one to get the position at which to start the enemy
     [SerializeField] private float spawnDelay = 1.0f;
-    [SerializeField] private float spawnInterval = 0.5f;
+    [SerializeField] private float spawnInterval = 1.5f;
     private int spawnChances = 10;
     private int playerScore = 0;
 
@@ -43,10 +43,12 @@ public class PointSpawner : MonoBehaviour
         if(playerScore > 50 && playerScore < 200)
         {
             spawnChances = 8;
+            spawnInterval = 1.0f;
         }
         else if(playerScore >= 200 && playerScore < 600)
         {
             spawnChances = 7;
+            spawnInterval = 0.5f;
         }
         else if (playerScore >= 600 && playerScore < 1000)
         {
@@ -55,6 +57,7 @@ public class PointSpawner : MonoBehaviour
         else if(playerScore >= 1000)
         {
             spawnChances = 5;
+            spawnInterval = 0.4f;
         }
 
         Debug.Log("Chances: " + spawnChances);

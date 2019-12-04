@@ -65,10 +65,11 @@ public class GameController : MonoBehaviour
         Debug.Log("Score: " + playerScore);
     }
 
-    private void Pause()
+    public void Pause()
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
+        inGameUI.SetActive(false);
         paused = true;
         
         song1.volume = song1.volume / 2;
@@ -85,10 +86,11 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetString("player_name", userInput.text);
     }
 
-    private void Resume()
+    public void Resume()
     {
         Time.timeScale = 1;
         pausePanel.SetActive(false);
+        inGameUI.SetActive(true);
         paused = false;
         song1.volume = song1.volume * 2;
     }
