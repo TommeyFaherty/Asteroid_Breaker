@@ -17,7 +17,7 @@ public class Bomb : MonoBehaviour
         var bullet = collision.GetComponent<Bullet>();
         var player = collision.GetComponent<PlayerMovement>();
 
-        if (bullet && (tagType != "EnemyRectangle"))
+        if (bullet || player)
         {
             // play a clip to inidcate a hit
             Destroy(bullet);

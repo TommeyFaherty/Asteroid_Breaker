@@ -47,9 +47,7 @@ public class GameController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.M) && gameOver == false)
         {
-            //Carry out function of button
-            Debug.Log("M key pressed");
-            
+            //Carry out function of Mute/UnMute Buttons
             if(btnMute.active)
             {
                 song1.Pause();
@@ -73,11 +71,13 @@ public class GameController : MonoBehaviour
     private void OnEnable()
     {
         Enemy.EnemyKilledEvent += HandleEnemyKilledEvent;
+        Enemy.EnemyKilledByPlayerEvent += HandleEnemyKilledByPlayerEvent;
     }
 
     private void OnDisable()
     {
         Enemy.EnemyKilledEvent -= HandleEnemyKilledEvent;
+        Enemy.EnemyKilledByPlayerEvent -= HandleEnemyKilledByPlayerEvent;
     }
 
     public void HandleEnemyKilledEvent(Enemy enemy)
@@ -85,6 +85,12 @@ public class GameController : MonoBehaviour
         // add the score from the enemy to the player
         playerScore += enemy.ScoreValue;
         Debug.Log("Score: " + playerScore);
+    }
+
+    public void HandleEnemyKilledByPlayerEvent(Enemy enemy)
+    {
+        //Player only gets 2 points if used ship to hit rock
+        playerScore += (enemy.ScoreValue/5);    
     }
 
     public void Pause()

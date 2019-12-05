@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 
     public delegate void EnemyKilled(Enemy enemy);
     public static EnemyKilled EnemyKilledEvent;
+    public static EnemyKilled EnemyKilledByPlayerEvent;
 
     //[SerializeField]
     //private GameObject audioManager;
@@ -33,7 +34,7 @@ public class Enemy : MonoBehaviour
         var bullet = collision.GetComponent<Bullet>();
         var player = collision.GetComponent<PlayerMovement>();
 
-        if (bullet && (tagType != "EnemyRectangle"))
+        if (bullet)
         {
             // play a clip to inidcate a hit
             //audioManager.Play("hitmark");
@@ -43,10 +44,10 @@ public class Enemy : MonoBehaviour
             PublishEnemyKilledEvent();
             Destroy(gameObject);
         }
-        else if (player && tagType == "EnemyRectangle")
+        else if (player)
         {
             // play a crash clip
-            PublishEnemyKilledEvent();
+            PublishEnemyKilledByPlayerEvent();
             Destroy(gameObject);
         }
     }
@@ -55,5 +56,10 @@ public class Enemy : MonoBehaviour
     private void PublishEnemyKilledEvent()
     {
         EnemyKilledEvent?.Invoke(this);
+    }
+
+    private void PublishEnemyKilledByPlayerEvent()
+    {
+        EnemyKilledByPlayerEvent?.Invoke(this);
     }
 }
