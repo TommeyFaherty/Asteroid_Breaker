@@ -12,12 +12,15 @@ public class GameController : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject highScorePanel;
     public GameObject inGameUI;
+    public GameObject unMuteBtn;
+    public GameObject btnMute;
     private bool paused = false;
     public TextMeshProUGUI score;
     public Text playerName;
     public InputField input;
     public AudioSource song1;
     public AudioSource song2;
+    private bool gameOver = false;
 
     void Start()
     {
@@ -29,7 +32,7 @@ public class GameController : MonoBehaviour
     {
 
         //Check if the ecape key was pressed to pause
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && gameOver == false)
         {
             if (paused == false)
             {
@@ -40,6 +43,25 @@ public class GameController : MonoBehaviour
                 Resume();
             }
 
+        }
+
+        if(Input.GetKeyDown(KeyCode.M) && gameOver == false)
+        {
+            //Carry out function of button
+            Debug.Log("M key pressed");
+            
+            if(btnMute.active)
+            {
+                song1.Pause();
+                btnMute.SetActive(false);
+                unMuteBtn.SetActive(true);
+            }
+            else
+            {
+                 song1.UnPause();
+                 btnMute.SetActive(true);
+                 unMuteBtn.SetActive(false);
+            }     
         }
 
         //update player score saved
@@ -107,6 +129,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("GAME OVER!!!");
         PlayerPrefs.SetInt("player_score", playerScore);
+        gameOver = true;
 
         Time.timeScale = 0;
 

@@ -59,8 +59,6 @@ public class PointSpawner : MonoBehaviour
             spawnChances = 5;
             spawnInterval = 0.4f;
         }
-
-        Debug.Log("Chances: " + spawnChances);
     }
 
     private void SpawnRepeating()
