@@ -15,32 +15,28 @@ public class WeaponsController : MonoBehaviour
     private float firingRate = 0.4f;
 
     private GameObject bulletParent;
-    
 
     [SerializeField]
     private Bullet bulletPrefab;
+    private Dictionary<string, KeyCode> keys = new Dictionary<string,KeyCode>();
 
     // Start is called before the first frame update
     void Start()
     {
         // get the bullet parent - keep tidy
         bulletParent = ParentUtils.GetBulletParent();
-        //bulletParent = GameObject.Find("BulletParent");
-        //if( !bulletParent )
-        //{
-        //    bulletParent = new GameObject("BulletParent");
-        //}
+        keys.Add("Shoot", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Shoot","Space")));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if( Input.GetKeyDown(KeyCode.Space))
+        if( Input.GetKeyDown(keys["Shoot"]))
         {
             FindObjectOfType<AudioManager>().Play("laser");
             InvokeRepeating("Shoot", 0f, firingRate);
         }
-        if(Input.GetKeyUp(KeyCode.Space))
+        if(Input.GetKeyUp(keys["Shoot"]))
         {
             CancelInvoke("Shoot");
         }
@@ -57,6 +53,4 @@ public class WeaponsController : MonoBehaviour
         rb.velocity = Vector2.up * bulletSpeed;   // same as Vector2(0, 1);
         // play shooting sound clip here later
     }
-    
-
 }

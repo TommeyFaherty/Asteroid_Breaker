@@ -28,7 +28,6 @@ public class Bomb : MonoBehaviour
             GameObject end = GameObject.Find("UICanvas");
             GameController gac = (GameController)end.GetComponent(typeof(GameController));
             gac.EndGame();
-            
         }        
     }
 

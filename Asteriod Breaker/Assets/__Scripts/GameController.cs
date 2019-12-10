@@ -131,6 +131,12 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
+    public void RestartLevel()
+    {
+        //Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);    
+    }
+
     public void EndGame()
     {
         Debug.Log("GAME OVER!!!");

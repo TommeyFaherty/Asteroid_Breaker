@@ -13,7 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private Sprite GoSprite;
     [SerializeField]
     private Sprite DefaultSprite;
+    private Dictionary<string,KeyCode> keys = new Dictionary<string, KeyCode>();
 
+    void Start()
+    {
+        keys.Add("Up", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Up","W")));
+        keys.Add("Down", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Down","S")));
+        keys.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Left","A")));
+        keys.Add("Right", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Right","D")));
+    }
     // == private methods ==
     // Update is called once per frame
     void Update()
@@ -23,18 +31,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        // find the change signal from the keyboard/input device
-        // create a value for the change
-        // Time.deltaTime - frame rate independent - same experience
-        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        Vector3 position = this.transform.position;
 
-        // add the change to the current position
-        var newXPos = transform.position.x + deltaX;
-        var newYPos = transform.position.y + deltaY;
+        if(Input.GetKey(keys["Up"]))
+        {
+           transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+        } 
+
+        if(Input.GetKey(keys["Down"]))
+        {
+            transform.position += Vector3.down * moveSpeed * Time.deltaTime;
+        }   
+
+        if(Input.GetKey(keys["Left"]))
+        {
+            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        }
+
+        if(Input.GetKey(keys["Right"]))
+        {
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        }
 
         //Changes sprite when moveing along the Y axis
-        if(deltaY != 0)
+        if(Input.GetKey(keys["Up"]))
         {
             this.GetComponent<SpriteRenderer>().sprite = GoSprite;
         }
@@ -42,7 +62,5 @@ public class PlayerMovement : MonoBehaviour
         {
             this.GetComponent<SpriteRenderer>().sprite = DefaultSprite;
         }
-
-        transform.position = new Vector2(newXPos, newYPos);
     }
 }
