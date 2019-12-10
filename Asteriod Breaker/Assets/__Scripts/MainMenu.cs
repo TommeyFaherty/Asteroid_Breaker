@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public GameObject playBtn;
+    public Slider slider;
     public InputField input;
     public Text up, down, left, right, shoot;
 
@@ -62,8 +63,8 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    // public void ChangeGameSound()
-    // {
-
-    // }
+    public void ChangeGameSound()
+    {
+        PlayerPrefs.SetString("GameVolume",slider.value.ToString());
+    }
 }

@@ -21,11 +21,13 @@ public class GameController : MonoBehaviour
     public AudioSource song1;
     public AudioSource song2;
     private bool gameOver = false;
+    public Slider slider;
 
     void Start()
     {
         playerName.text = PlayerPrefs.GetString("player_name");
         Debug.Log("Player name: "+playerName.text);
+        ChangeGameVolume();
     }
 
     void Update()
@@ -135,6 +137,28 @@ public class GameController : MonoBehaviour
     {
         //Application.LoadLevel(Application.loadedLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);    
+    }
+
+    public void SetGameVolume()
+    {
+        PlayerPrefs.SetString("GameVolume",slider.value.ToString());
+        ChangeGameVolume();
+    }
+
+    public void ChangeGameVolume()
+    {
+        //Set Game volume to players preffered set volume
+        float vol = float.Parse(PlayerPrefs.GetString("GameVolume"));
+        
+        Sound s1 = FindObjectOfType<AudioManager>().GetSound("hitmark");
+        Sound s2 = FindObjectOfType<AudioManager>().GetSound("laser");
+        Sound s3 = FindObjectOfType<AudioManager>().GetSound("explosions");
+    
+        s1.volume = vol;
+        s2.volume = vol;
+        s3.volume = vol;
+
+        Debug.Log("New Volume:"+vol);
     }
 
     public void EndGame()
