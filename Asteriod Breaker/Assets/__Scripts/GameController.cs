@@ -137,6 +137,7 @@ public class GameController : MonoBehaviour
     {
         //Application.LoadLevel(Application.loadedLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);    
+        Time.timeScale = 1;
     }
 
     public void SetGameVolume()
