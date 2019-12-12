@@ -19,6 +19,11 @@ public class PointSpawner : MonoBehaviour
     private GameObject enemyParent;
     private GameObject bombParent;
 
+    [SerializeField] private GameObject phase1BckGrnd;
+    [SerializeField] private GameObject phase2BckGrnd;
+    [SerializeField] private GameObject phase3BckGrnd;
+    [SerializeField] private GameObject phase4BckGrnd;
+
     private IList<SpawnPoint> spawnPoints;
 
     private Stack<SpawnPoint> spawnStack;
@@ -47,15 +52,22 @@ public class PointSpawner : MonoBehaviour
             spawnChances = 8;
             //Less time between enemies spawning
             spawnInterval = 1.0f;
+            //Change the background color
+            phase1BckGrnd.SetActive(false);
+            phase2BckGrnd.SetActive(true);
         }
         else if(playerScore >= 200 && playerScore < 600)
         {
             spawnChances = 7;
             spawnInterval = 0.5f;
+            phase2BckGrnd.SetActive(false);
+            phase3BckGrnd.SetActive(true);
         }
         else if (playerScore >= 600 && playerScore < 1000)
         {
             spawnChances = 6;
+            phase3BckGrnd.SetActive(false);
+            phase4BckGrnd.SetActive(true);
         }
         else if(playerScore >= 1000)
         {
