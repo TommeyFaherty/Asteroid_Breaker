@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 public class WeaponsController : MonoBehaviour
@@ -14,6 +15,7 @@ public class WeaponsController : MonoBehaviour
     [SerializeField]
     private float firingRate = 0.4f;
 
+    [SerializeField] private Button controlsSaveBtn;
     private GameObject bulletParent;
 
     [SerializeField]
@@ -26,6 +28,9 @@ public class WeaponsController : MonoBehaviour
         // get the bullet parent - keep tidy
         bulletParent = ParentUtils.GetBulletParent();
         keys.Add("Shoot", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Shoot","Space")));
+
+        //If the player presses the save button the shooting key will be updated
+        controlsSaveBtn.onClick.AddListener(UpdateKey);
     }
 
     // Update is called once per frame
@@ -52,5 +57,10 @@ public class WeaponsController : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.up * bulletSpeed;   // same as Vector2(0, 1);
         // play shooting sound clip here later
+    }
+
+    private void UpdateKey()
+    {
+        keys["Shoot"] = (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Shoot","Space"));
     }
 }

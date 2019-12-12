@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Sprite DefaultSprite;
     private Dictionary<string,KeyCode> keys = new Dictionary<string, KeyCode>();
+    [SerializeField] private Button controlsSaveBtn;
 
     void Start()
     {
@@ -21,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
         keys.Add("Down", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Down","S")));
         keys.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Left","A")));
         keys.Add("Right", (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Right","D")));
+
+        //If player clicks save in binding menus
+        //Controls will update
+        controlsSaveBtn.onClick.AddListener(UpdateKeys);
     }
     // == private methods ==
     // Update is called once per frame
@@ -62,5 +68,13 @@ public class PlayerMovement : MonoBehaviour
         {
             this.GetComponent<SpriteRenderer>().sprite = DefaultSprite;
         }
+    }
+
+    private void UpdateKeys()
+    {
+        keys["Up"] = (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Up","W"));
+        keys["Down"] = (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Down","S"));
+        keys["Left"] = (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Left","A"));
+        keys["Right"] = (KeyCode)System.Enum.Parse(typeof(KeyCode),PlayerPrefs.GetString("Right","D"));
     }
 }
