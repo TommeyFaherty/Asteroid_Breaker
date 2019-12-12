@@ -42,7 +42,10 @@ public class PointSpawner : MonoBehaviour
         playerScore = PlayerPrefs.GetInt("player_score", playerScore);
         if(playerScore > 50 && playerScore < 200)
         {
+            //As more points are gained
+            //Higher chance of a bomb to spawn
             spawnChances = 8;
+            //Less time between enemies spawning
             spawnInterval = 1.0f;
         }
         else if(playerScore >= 200 && playerScore < 600)
