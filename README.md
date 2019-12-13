@@ -1,6 +1,9 @@
 # Asteroid_Breaker
 Unity 2D Game for a mobile applications (3) project in 4th year. 
 
+## Unity version
+Unity 2019.2.8f1
+
 ## Running the game
 To run game in Unity build the "BuildFolder"
 
